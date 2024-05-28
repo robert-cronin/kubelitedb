@@ -1,5 +1,7 @@
 # KubeLiteDB
 
+<a href="https://github.com/fortytwoapps/kubelitedb"><img src="./static/logo.svg" height="auto" width="200"></a>
+
 **KubeLiteDB** is an open-source project that provides a Kubernetes Custom Resource Definition (CRD) and operator for managing SQLite instances within a Kubernetes cluster. This project enables users to deploy and manage lightweight, ephemeral SQLite databases easily, leveraging Kubernetes' scalability and orchestration capabilities.
 
 ## Features
