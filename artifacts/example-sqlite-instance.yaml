@@ -1,0 +1,7 @@
+apiVersion: kubelitedb/v1
+kind: SQLiteInstance
+metadata:
+  name: example-sqlite-instance
+  namespace: default
+spec:
+  storage: 1Gi
