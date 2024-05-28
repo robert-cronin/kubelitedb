@@ -2,7 +2,6 @@ package v1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/code-generator"
 )
 
 // SQLiteInstanceSpec defines the desired state of SQLiteInstance
