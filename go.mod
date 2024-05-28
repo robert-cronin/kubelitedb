@@ -1,4 +1,4 @@
-module github.com/robert-cronin/kubelitedb
+module github.com/fortytwoapps/kubelitedb
 
 go 1.22.3
 

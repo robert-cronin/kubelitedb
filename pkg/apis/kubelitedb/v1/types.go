@@ -1,8 +1,36 @@
+/*
+Copyright 2024 Forty Two Apps.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 package v1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
+
+// +genclient
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// SQLiteInstance is a specification for a SQLiteInstance resource
+type SQLiteInstance struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	Spec   SQLiteInstanceSpec   `json:"spec"`
+	Status SQLiteInstanceStatus `json:"status"`
+}
 
 // SQLiteInstanceSpec defines the desired state of SQLiteInstance
 type SQLiteInstanceSpec struct {
@@ -16,22 +44,12 @@ type SQLiteInstanceStatus struct {
 	Phase string `json:"phase"`
 }
 
-// +kubebuilder:object:root=true
-
-// SQLiteInstance is the Schema for the sqliteinstances API
-type SQLiteInstance struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
-
-	Spec   SQLiteInstanceSpec   `json:"spec,omitempty"`
-	Status SQLiteInstanceStatus `json:"status,omitempty"`
-}
-
-// +kubebuilder:object:root=true
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // SQLiteInstanceList contains a list of SQLiteInstance
 type SQLiteInstanceList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []SQLiteInstance `json:"items"`
+
+	Items []SQLiteInstance `json:"items"`
 }
