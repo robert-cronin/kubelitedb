@@ -1,5 +1,5 @@
 /*
-Copyright Forty Two Apps.
+Copyright 2024 Forty Two Apps.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,12 +20,12 @@ package v1
 
 import (
 	"context"
-	versioned "fortytwoapps/kubelitedb/pkg/generated/clientset/versioned"
-	internalinterfaces "fortytwoapps/kubelitedb/pkg/generated/informers/externalversions/internalinterfaces"
-	v1 "fortytwoapps/kubelitedb/pkg/generated/listers/kubelitedb/v1"
 	time "time"
 
 	kubelitedbv1 "github.com/fortytwoapps/kubelitedb/pkg/apis/kubelitedb/v1"
+	versioned "github.com/fortytwoapps/kubelitedb/pkg/generated/clientset/versioned"
+	internalinterfaces "github.com/fortytwoapps/kubelitedb/pkg/generated/informers/externalversions/internalinterfaces"
+	v1 "github.com/fortytwoapps/kubelitedb/pkg/generated/listers/kubelitedb/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"

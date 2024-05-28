@@ -1,5 +1,5 @@
 /*
-Copyright Forty Two Apps.
+Copyright 2024 Forty Two Apps.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@ package v1
 
 import (
 	"context"
-	scheme "fortytwoapps/kubelitedb/pkg/generated/clientset/versioned/scheme"
 	"time"
 
 	v1 "github.com/fortytwoapps/kubelitedb/pkg/apis/kubelitedb/v1"
+	scheme "github.com/fortytwoapps/kubelitedb/pkg/generated/clientset/versioned/scheme"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"

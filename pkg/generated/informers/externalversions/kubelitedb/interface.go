@@ -1,5 +1,5 @@
 /*
-Copyright Forty Two Apps.
+Copyright 2024 Forty Two Apps.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ limitations under the License.
 package kubelitedb
 
 import (
-	internalinterfaces "fortytwoapps/kubelitedb/pkg/generated/informers/externalversions/internalinterfaces"
-	v1 "fortytwoapps/kubelitedb/pkg/generated/informers/externalversions/kubelitedb/v1"
+	internalinterfaces "github.com/fortytwoapps/kubelitedb/pkg/generated/informers/externalversions/internalinterfaces"
+	v1 "github.com/fortytwoapps/kubelitedb/pkg/generated/informers/externalversions/kubelitedb/v1"
 )
 
 // Interface provides access to each of this group's versions.

@@ -1,5 +1,5 @@
 /*
-Copyright Forty Two Apps.
+Copyright 2024 Forty Two Apps.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@ package versioned
 
 import (
 	"fmt"
-	kubelitedbv1 "fortytwoapps/kubelitedb/pkg/generated/clientset/versioned/typed/kubelitedb/v1"
 	"net/http"
 
+	kubelitedbv1 "github.com/fortytwoapps/kubelitedb/pkg/generated/clientset/versioned/typed/kubelitedb/v1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"

@@ -1,5 +1,5 @@
 /*
-Copyright Forty Two Apps.
+Copyright 2024 Forty Two Apps.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,10 +19,9 @@ limitations under the License.
 package fake
 
 import (
-	clientset "fortytwoapps/kubelitedb/pkg/generated/clientset/versioned"
-	kubelitedbv1 "fortytwoapps/kubelitedb/pkg/generated/clientset/versioned/typed/kubelitedb/v1"
-	fakekubelitedbv1 "fortytwoapps/kubelitedb/pkg/generated/clientset/versioned/typed/kubelitedb/v1/fake"
-
+	clientset "github.com/fortytwoapps/kubelitedb/pkg/generated/clientset/versioned"
+	kubelitedbv1 "github.com/fortytwoapps/kubelitedb/pkg/generated/clientset/versioned/typed/kubelitedb/v1"
+	fakekubelitedbv1 "github.com/fortytwoapps/kubelitedb/pkg/generated/clientset/versioned/typed/kubelitedb/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

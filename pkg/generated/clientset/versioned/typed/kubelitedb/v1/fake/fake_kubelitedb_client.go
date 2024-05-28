@@ -1,5 +1,5 @@
 /*
-Copyright Forty Two Apps.
+Copyright 2024 Forty Two Apps.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,8 +19,7 @@ limitations under the License.
 package fake
 
 import (
-	v1 "fortytwoapps/kubelitedb/pkg/generated/clientset/versioned/typed/kubelitedb/v1"
-
+	v1 "github.com/fortytwoapps/kubelitedb/pkg/generated/clientset/versioned/typed/kubelitedb/v1"
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 )
