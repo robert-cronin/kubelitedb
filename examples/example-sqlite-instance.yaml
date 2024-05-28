@@ -1,4 +1,4 @@
-apiVersion: kubelitedb/v1
+apiVersion: kubelitedb.fortytwoapps.tech/v1
 kind: SQLiteInstance
 metadata:
   name: example-sqlite-instance

@@ -3,7 +3,14 @@ kind: CustomResourceDefinition
 metadata:
   name: sqliteinstances.kubelitedb.fortytwoapps.tech
 spec:
-  group: kubelitedb.yourdomain.com
+  group: kubelitedb.fortytwoapps.tech
+  names:
+    plural: sqliteinstances
+    singular: sqliteinstance
+    kind: SQLiteInstance
+    shortNames:
+      - kld
+  scope: Namespaced
   versions:
     - name: v1
       served: true
@@ -30,27 +37,20 @@ spec:
                 phase:
                   type: string
                   description: "The current phase of the SQLite instance."
-  scope: Namespaced
-  names:
-    plural: sqliteinstances
-    singular: sqliteinstance
-    kind: SQLiteInstance
-    shortNames:
-      - sql
-  additionalPrinterColumns:
-    - name: DB Name
-      type: string
-      description: "The name of the SQLite database"
-      jsonPath: ".spec.dbName"
-    - name: Storage
-      type: string
-      description: "The amount of storage allocated for the SQLite database"
-      jsonPath: ".spec.storage"
-    - name: Replicas
-      type: integer
-      description: "The number of replicas for the SQLite database"
-      jsonPath: ".spec.replicas"
-    - name: Phase
-      type: string
-      description: "The current phase of the SQLite instance"
-      jsonPath: ".status.phase"
+      additionalPrinterColumns:
+        - name: DB Name
+          type: string
+          description: "The name of the SQLite database"
+          jsonPath: ".spec.dbName"
+        - name: Storage
+          type: string
+          description: "The amount of storage allocated for the SQLite database"
+          jsonPath: ".spec.storage"
+        - name: Replicas
+          type: integer
+          description: "The number of replicas for the SQLite database"
+          jsonPath: ".spec.replicas"
+        - name: Phase
+          type: string
+          description: "The current phase of the SQLite instance"
+          jsonPath: ".status.phase"
