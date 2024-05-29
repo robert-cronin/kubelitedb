@@ -32,3 +32,10 @@ deploy:
 up: kind-up deploy build
 	@echo "Starting the controller..."
 	@$(BUILD_DIR)/$(BINARY_NAME) -kubeconfig=$(KUBECONFIG)
+
+debug: kind-up deploy
+	@echo "Starting the controller in debug mode..."
+	@dlv debug --headless --listen=:2345 --api-version=2 --accept-multiclient . -- -kubeconfig=$(KUBECONFIG)
+
+install:
+	sudo cp ./usr/local/bin/kubectl-sqlite /usr/local/bin/kubectl-sqlite

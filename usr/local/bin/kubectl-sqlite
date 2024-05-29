@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Check if the correct number of arguments are provided
+if [[ $# -ne 1 ]]
+then
+    echo "Usage: kubectl sqlite <kubelitedb-name>"
+    echo "Only working for the default namespace"
+    exit 1
+fi
+
+NAME=$1
+
+# Get the pod name
+POD="$NAME-pod"
+
+# Exec into the sqlite container
+kubectl exec -it $POD -- sqlite3 /data/$NAME.db

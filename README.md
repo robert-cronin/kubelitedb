@@ -1,3 +1,5 @@
+Note: sqlite is a file based database, so this is an antipattern, this repo is just for learning how to build controllers and plugins on top of k8s. Use at your own risk :).
+
 # KubeLiteDB
 
 <a href="https://github.com/fortytwoapps/kubelitedb"><img src="./static/logo.svg" height="auto" width="200"></a>

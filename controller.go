@@ -23,6 +23,7 @@ import (
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
+	"k8s.io/apimachinery/pkg/api/resource"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/apimachinery/pkg/util/wait"
@@ -217,10 +218,31 @@ func (c *Controller) syncHandler(ctx context.Context, key string) error {
 		return err
 	}
 
-	// TODO: Add sync logic here, e.g., create/update/delete related resources
+	// Ensure the PVC exists
+	pvcName := fmt.Sprintf("%s-pvc", sqliteInstance.Name)
+	_, err = c.kubeclientset.CoreV1().PersistentVolumeClaims(namespace).Get(ctx, pvcName, v1.GetOptions{})
+	if errors.IsNotFound(err) {
+		// Create the PVC
+		pvc := newPVC(sqliteInstance, pvcName)
+		_, err = c.kubeclientset.CoreV1().PersistentVolumeClaims(namespace).Create(ctx, pvc, v1.CreateOptions{})
+	}
+	if err != nil {
+		return err
+	}
 
-	// Update the status block of the SQLiteInstance resource to reflect the
-	// current state of the world
+	// Ensure the Pod exists
+	podName := fmt.Sprintf("%s-pod", sqliteInstance.Name)
+	_, err = c.kubeclientset.CoreV1().Pods(namespace).Get(ctx, podName, v1.GetOptions{})
+	if errors.IsNotFound(err) {
+		// Create the Pod
+		pod := newPod(sqliteInstance, podName, pvcName)
+		_, err = c.kubeclientset.CoreV1().Pods(namespace).Create(ctx, pod, v1.CreateOptions{})
+	}
+	if err != nil {
+		return err
+	}
+
+	// Update the status block of the SQLiteInstance resource to reflect the current state of the world
 	err = c.updateSQLiteInstanceStatus(sqliteInstance)
 	if err != nil {
 		return err
@@ -228,6 +250,71 @@ func (c *Controller) syncHandler(ctx context.Context, key string) error {
 
 	c.recorder.Event(sqliteInstance, corev1.EventTypeNormal, SuccessSynced, MessageResourceSynced)
 	return nil
+}
+
+func newPVC(instance *kubelitedbv1.SQLiteInstance, pvcName string) *corev1.PersistentVolumeClaim {
+	storageClassName := "standard" // Adjust the storage class as needed
+	return &corev1.PersistentVolumeClaim{
+		ObjectMeta: v1.ObjectMeta{
+			Name:      pvcName,
+			Namespace: instance.Namespace,
+			OwnerReferences: []v1.OwnerReference{
+				*v1.NewControllerRef(instance, kubelitedbv1.SchemeGroupVersion.WithKind("SQLiteInstance")),
+			},
+		},
+		Spec: corev1.PersistentVolumeClaimSpec{
+			AccessModes: []corev1.PersistentVolumeAccessMode{
+				corev1.ReadWriteOnce,
+			},
+			Resources: corev1.VolumeResourceRequirements{
+				Requests: corev1.ResourceList{
+					corev1.ResourceStorage: resource.MustParse(instance.Spec.Storage),
+				},
+			},
+			StorageClassName: &storageClassName,
+		},
+	}
+}
+
+func newPod(instance *kubelitedbv1.SQLiteInstance, podName, pvcName string) *corev1.Pod {
+	labels := map[string]string{
+		"app":        "sqlite",
+		"controller": instance.Name,
+	}
+	return &corev1.Pod{
+		ObjectMeta: v1.ObjectMeta{
+			Name:      podName,
+			Namespace: instance.Namespace,
+			Labels:    labels,
+			OwnerReferences: []v1.OwnerReference{
+				*v1.NewControllerRef(instance, kubelitedbv1.SchemeGroupVersion.WithKind("SQLiteInstance")),
+			},
+		},
+		Spec: corev1.PodSpec{
+			Containers: []corev1.Container{
+				{
+					Name:  "sqlite",
+					Image: "ghcr.io/fortytwoapps/kubelitedb",
+					VolumeMounts: []corev1.VolumeMount{
+						{
+							Name:      "database-volume",
+							MountPath: "/data",
+						},
+					},
+				},
+			},
+			Volumes: []corev1.Volume{
+				{
+					Name: "database-volume",
+					VolumeSource: corev1.VolumeSource{
+						PersistentVolumeClaim: &corev1.PersistentVolumeClaimVolumeSource{
+							ClaimName: pvcName,
+						},
+					},
+				},
+			},
+		},
+	}
 }
 
 func (c *Controller) updateSQLiteInstanceStatus(sqliteInstance *kubelitedbv1.SQLiteInstance) error {
