@@ -1,4 +1,4 @@
-Note: sqlite is a file based database, so this is an antipattern, this repo is just for learning how to build controllers and plugins on top of k8s. Use at your own risk :).
+Note: sqlite is a file based database, so this is an antipattern, this repo is just for learning how to build controllers and plugins on top of k8s. Use at your own risk :). If there is any interest, I can expand and add support for automatic backups, there might be some interest for Edge computing and IoT data collection.
 
 # KubeLiteDB
 
